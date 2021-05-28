@@ -1,0 +1,26 @@
+---
+- name: Plays for centos vm
+  hosts: target
+
+  tasks:
+  - name: Change motd
+    lineinfile:
+      path: '/etc/motd'
+      line: 'Ansible Managed by 1813768'
+      state: present
+
+  - name: user creation
+    user:
+      name: remmorales-tip
+      state: present
+      password: AnsibleManaged
+  - name: name should be a passwordless sudoers
+    lineinfile:
+      path: '/etc/sudoers'
+      line: 'remmorales-tip ALL=(ALL) NOPASSWD: ALL'
+      state: present
+
+  - name: Create a group named sysad2
+    group:
+      name: sysad2
+      state: present
